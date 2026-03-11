@@ -156,7 +156,7 @@ function initSampleData() {
 }
 
 // Favoriler CRUD
-const FAV_KEY = 'emlakpro_favoriler';
+const FAV_KEY = 'eciyasemlak_favoriler';
 
 function getFavoriler() {
   const data = localStorage.getItem(FAV_KEY);
