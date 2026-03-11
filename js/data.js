@@ -2,6 +2,35 @@
 
 const STORAGE_KEY = 'gayrimenkul_ilanlar';
 
+// İl / İlçe / Semt verileri
+const LOKASYONLAR = {
+  'İstanbul': {
+    'Kadıköy': ['Caferağa', 'Moda', 'Fenerbahçe', 'Göztepe', 'Koşuyolu'],
+    'Beşiktaş': ['Levent', 'Etiler', 'Bebek', 'Ortaköy', 'Akatlar'],
+    'Sarıyer': ['Maslak', 'İstinye', 'Tarabya', 'Emirgan', 'Bahçeköy'],
+    'Şişli': ['Nişantaşı', 'Mecidiyeköy', 'Bomonti', 'Osmanbey', 'Teşvikiye'],
+    'Üsküdar': ['Çengelköy', 'Kuzguncuk', 'Beylerbeyi', 'Acıbadem', 'Altunizade'],
+    'Ataşehir': ['Küçükbakkalköy', 'İçerenköy', 'Kayışdağı', 'Yenisahra', 'Barbaros'],
+    'Bakırköy': ['Yeşilköy', 'Florya', 'Ataköy', 'Zuhuratbaba'],
+    'Beyoğlu': ['Cihangir', 'Galata', 'Taksim', 'Karaköy']
+  },
+  'Ankara': {
+    'Çankaya': ['Kızılay', 'Bahçelievler', 'Gaziosmanpaşa', 'Oran', 'Çayyolu'],
+    'Keçiören': ['Etlik', 'Kuşcağız', 'Bağlum', 'Ovacık'],
+    'Yenimahalle': ['Batıkent', 'Demetevler', 'Ostim', 'Çayyolu']
+  },
+  'İzmir': {
+    'Konak': ['Alsancak', 'Göztepe', 'Hatay', 'Güzelyalı'],
+    'Karşıyaka': ['Bostanlı', 'Çiğli', 'Mavişehir', 'Atakent'],
+    'Bornova': ['Erzene', 'Kazımdirik', 'Evka-3', 'Doğanlar']
+  },
+  'Kayseri': {
+    'Melikgazi': ['Erciyes', 'Alpaslan', 'Germir', 'Mimarsinan'],
+    'Kocasinan': ['Pervane', 'Argıncık', 'Yıldırım Beyazıt'],
+    'Talas': ['Kiçiköy', 'Başakpınar', 'Ali Dağı']
+  }
+};
+
 function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 }
@@ -51,7 +80,10 @@ function initSampleData() {
       baslik: '3+1 Deniz Manzaralı Daire',
       tur: 'satilik',
       fiyat: 3500000,
-      konum: 'İstanbul, Kadıköy',
+      il: 'İstanbul',
+      ilce: 'Kadıköy',
+      semt: 'Moda',
+      konum: 'İstanbul, Kadıköy, Moda',
       metrekare: 120,
       odaSayisi: '3+1',
       kat: 5,
@@ -69,7 +101,10 @@ function initSampleData() {
       baslik: '2+1 Kiralık Residence',
       tur: 'kiralik',
       fiyat: 25000,
-      konum: 'İstanbul, Beşiktaş',
+      il: 'İstanbul',
+      ilce: 'Beşiktaş',
+      semt: 'Levent',
+      konum: 'İstanbul, Beşiktaş, Levent',
       metrekare: 85,
       odaSayisi: '2+1',
       kat: 12,
@@ -86,7 +121,10 @@ function initSampleData() {
       baslik: '4+1 Müstakil Villa',
       tur: 'satilik',
       fiyat: 12000000,
-      konum: 'İstanbul, Sarıyer',
+      il: 'İstanbul',
+      ilce: 'Sarıyer',
+      semt: 'Bahçeköy',
+      konum: 'İstanbul, Sarıyer, Bahçeköy',
       metrekare: 280,
       odaSayisi: '4+1',
       kat: 3,
@@ -104,7 +142,10 @@ function initSampleData() {
       baslik: '1+1 Stüdyo Daire',
       tur: 'kiralik',
       fiyat: 15000,
-      konum: 'İstanbul, Şişli',
+      il: 'İstanbul',
+      ilce: 'Şişli',
+      semt: 'Mecidiyeköy',
+      konum: 'İstanbul, Şişli, Mecidiyeköy',
       metrekare: 55,
       odaSayisi: '1+1',
       kat: 8,
@@ -121,7 +162,10 @@ function initSampleData() {
       baslik: '5+2 Boğaz Manzaralı Penthouse',
       tur: 'satilik',
       fiyat: 28000000,
-      konum: 'İstanbul, Üsküdar',
+      il: 'İstanbul',
+      ilce: 'Üsküdar',
+      semt: 'Çengelköy',
+      konum: 'İstanbul, Üsküdar, Çengelköy',
       metrekare: 350,
       odaSayisi: '5+2',
       kat: 15,
@@ -138,7 +182,10 @@ function initSampleData() {
       baslik: '3+1 Site İçi Daire',
       tur: 'kiralik',
       fiyat: 20000,
-      konum: 'İstanbul, Ataşehir',
+      il: 'İstanbul',
+      ilce: 'Ataşehir',
+      semt: 'Küçükbakkalköy',
+      konum: 'İstanbul, Ataşehir, Küçükbakkalköy',
       metrekare: 110,
       odaSayisi: '3+1',
       kat: 6,

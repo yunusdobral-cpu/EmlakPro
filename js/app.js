@@ -11,9 +11,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   const sortSelect = document.getElementById('sortSelect');
   const filterOdaSayisi = document.getElementById('filterOdaSayisi');
+  const filterIl = document.getElementById('filterIl');
+  const filterIlce = document.getElementById('filterIlce');
+  const filterSemt = document.getElementById('filterSemt');
   const btnFiltrele = document.getElementById('btnFiltrele');
   const btnTemizle = document.getElementById('btnTemizle');
   const btnFavoriler = document.getElementById('btnFavoriler');
+
+  // İl dropdown'ını doldur
+  Object.keys(LOKASYONLAR).forEach(il => {
+    filterIl.innerHTML += `<option value="${il}">${il}</option>`;
+  });
+
+  // İl değişince ilçeleri güncelle
+  filterIl.addEventListener('change', () => {
+    const il = filterIl.value;
+    filterIlce.innerHTML = '<option value="">Tümü</option>';
+    filterSemt.innerHTML = '<option value="">Tümü</option>';
+    filterIlce.disabled = !il;
+    filterSemt.disabled = true;
+    if (il && LOKASYONLAR[il]) {
+      Object.keys(LOKASYONLAR[il]).forEach(ilce => {
+        filterIlce.innerHTML += `<option value="${ilce}">${ilce}</option>`;
+      });
+    }
+    applyFiltersAndRender();
+  });
+
+  // İlçe değişince semtleri güncelle
+  filterIlce.addEventListener('change', () => {
+    const il = filterIl.value;
+    const ilce = filterIlce.value;
+    filterSemt.innerHTML = '<option value="">Tümü</option>';
+    filterSemt.disabled = !ilce;
+    if (il && ilce && LOKASYONLAR[il] && LOKASYONLAR[il][ilce]) {
+      LOKASYONLAR[il][ilce].forEach(semt => {
+        filterSemt.innerHTML += `<option value="${semt}">${semt}</option>`;
+      });
+    }
+    applyFiltersAndRender();
+  });
+
+  filterSemt.addEventListener('change', () => applyFiltersAndRender());
 
   searchInput.addEventListener('input', () => {
     clearTimeout(debounceTimer);
@@ -45,7 +84,21 @@ function applyFiltersAndRender() {
     );
   }
 
-  // 2. Type filter
+  // 2. Location filters
+  const il = document.getElementById('filterIl').value;
+  if (il) {
+    ilanlar = ilanlar.filter(i => i.il === il);
+  }
+  const ilce = document.getElementById('filterIlce').value;
+  if (ilce) {
+    ilanlar = ilanlar.filter(i => i.ilce === ilce);
+  }
+  const semt = document.getElementById('filterSemt').value;
+  if (semt) {
+    ilanlar = ilanlar.filter(i => i.semt === semt);
+  }
+
+  // 3. Type filter
   const tur = document.getElementById('filterTur').value;
   if (tur) {
     ilanlar = ilanlar.filter(i => i.tur === tur);
@@ -134,6 +187,11 @@ function toggleFavorite(id) {
 
 function resetFilters() {
   document.getElementById('searchInput').value = '';
+  document.getElementById('filterIl').value = '';
+  document.getElementById('filterIlce').innerHTML = '<option value="">Tümü</option>';
+  document.getElementById('filterIlce').disabled = true;
+  document.getElementById('filterSemt').innerHTML = '<option value="">Tümü</option>';
+  document.getElementById('filterSemt').disabled = true;
   document.getElementById('filterTur').value = '';
   document.getElementById('filterMinFiyat').value = '';
   document.getElementById('filterMaxFiyat').value = '';
