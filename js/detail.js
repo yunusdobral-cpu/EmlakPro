@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  document.title = `${ilan.baslik} — Eciyas Emlak`;
+  document.title = `${ilan.baslik} — Erciyas Emlak`;
 
   const thumbsHtml = ilan.resimler.map((url, i) => `
     <img src="${url}" alt="Fotoğraf ${i + 1}" class="${i === 0 ? 'active' : ''}" onclick="changeMainImage(this, '${url}')">
