@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Paneli — EmlakPro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Emlak<span>Pro</span></a>
+      <button class="menu-toggle" onclick="document.querySelector('.navbar nav').classList.toggle('open')">&#9776;</button>
+      <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="admin.html" class="active">Admin Paneli</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-container">
+    <h1>Admin Paneli</h1>
+
+    <div class="admin-form">
+      <h2 id="formTitle">Yeni İlan Ekle</h2>
+      <input type="hidden" id="editId">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="baslik">Başlık</label>
+          <input type="text" id="baslik" placeholder="Örn: 3+1 Daire Kadıköy">
+        </div>
+        <div class="form-group">
+          <label for="tur">Tür</label>
+          <select id="tur">
+            <option value="satilik">Satılık</option>
+            <option value="kiralik">Kiralık</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fiyat">Fiyat (₺)</label>
+          <input type="number" id="fiyat" placeholder="Örn: 3500000">
+        </div>
+        <div class="form-group">
+          <label for="konum">Konum</label>
+          <input type="text" id="konum" placeholder="Örn: İstanbul, Kadıköy">
+        </div>
+        <div class="form-group">
+          <label for="metrekare">Metrekare</label>
+          <input type="number" id="metrekare" placeholder="Örn: 120">
+        </div>
+        <div class="form-group">
+          <label for="odaSayisi">Oda Sayısı</label>
+          <input type="text" id="odaSayisi" placeholder="Örn: 3+1">
+        </div>
+        <div class="form-group">
+          <label for="kat">Kat</label>
+          <input type="number" id="kat" placeholder="Örn: 5">
+        </div>
+        <div class="form-group">
+          <label for="isinma">Isınma</label>
+          <input type="text" id="isinma" placeholder="Örn: Doğalgaz">
+        </div>
+        <div class="form-group full-width">
+          <label for="aciklama">Açıklama</label>
+          <textarea id="aciklama" placeholder="İlan açıklaması..."></textarea>
+        </div>
+        <div class="form-group full-width">
+          <label for="resimler">Fotoğraf URL'leri (her satıra bir URL)</label>
+          <textarea id="resimler" placeholder="https://example.com/foto1.jpg&#10;https://example.com/foto2.jpg"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="saveIlanForm()">Kaydet</button>
+        <button class="btn btn-secondary" onclick="resetForm()">İptal</button>
+      </div>
+    </div>
+
+    <div class="admin-table-wrapper">
+      <h2>Mevcut İlanlar</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Başlık</th>
+            <th>Tür</th>
+            <th>Fiyat</th>
+            <th>Konum</th>
+            <th>İşlemler</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="footer" style="margin-top: 3rem;">
+    <div class="footer-bottom">
+      <p>&copy; 2026 EmlakPro. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
